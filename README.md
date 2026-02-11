@@ -1,2 +1,2 @@
-# Cartograf-a
+# Cartografia
 Cartografía de filósofos del derecho
