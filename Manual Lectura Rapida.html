@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Lectura Rápida de Expedientes Judiciales</title>
+<style>
+:root{--accent:#2D6A4F;--accent-l:#e8f5e9;--gold:#e9c46a;--gold-l:#fef9e7;--info:#264653;--info-l:#e8eef1;--danger:#c1121f;--danger-l:#fdecea;--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--border:#e0e0e0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.75;font-size:15px}
+.wrap{max-width:920px;margin:0 auto;padding:1.5rem}
+nav{position:sticky;top:0;z-index:100;background:var(--accent);padding:.5rem 1rem;display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+nav a{color:#fff;text-decoration:none;font-size:.78rem;padding:.25rem .5rem;border-radius:4px;transition:background .2s}
+nav a:hover,nav a.active{background:rgba(255,255,255,.18)}
+nav .brand{font-weight:700;font-size:.85rem;margin-right:auto}
+h1{font-size:2rem;color:var(--accent);font-weight:800;letter-spacing:-.02em;margin-bottom:.2rem}
+h2{font-size:1.45rem;color:var(--info);margin:2rem 0 .8rem;padding-bottom:.35rem;border-bottom:3px solid var(--accent);font-weight:700}
+h3{font-size:1.1rem;color:var(--accent);margin:1.3rem 0 .5rem;font-weight:600}
+h4{font-size:.82rem;color:var(--muted);margin:1rem 0 .3rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+p{margin-bottom:.9rem}
+.sub{font-size:1rem;color:var(--muted)}
+.author{background:var(--accent-l);border-left:4px solid var(--accent);padding:.8rem 1rem;margin:1.2rem 0;border-radius:0 6px 6px 0}
+.author strong{color:var(--accent)}
+.co{padding:.8rem 1rem;border-radius:6px;margin:1rem 0;border-left:4px solid}
+.co-a{background:var(--accent-l);border-color:var(--accent)}.co-g{background:var(--gold-l);border-color:var(--gold)}.co-i{background:var(--info-l);border-color:var(--info)}.co-d{background:var(--danger-l);border-color:var(--danger)}
+.co-t{font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
+.co-a .co-t{color:var(--accent)}.co-g .co-t{color:#b8860b}.co-i .co-t{color:var(--info)}.co-d .co-t{color:var(--danger)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem}
+thead th{background:var(--accent);color:#fff;padding:.55rem .7rem;text-align:left;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.02em}
+tbody td{padding:.5rem .7rem;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:nth-child(even){background:#f5f5f5}
+tbody tr:hover{background:var(--accent-l)}
+.badge{display:inline-block;padding:.12rem .45rem;border-radius:12px;font-size:.72rem;font-weight:600}
+.b-h{background:var(--danger-l);color:var(--danger)}.b-m{background:var(--gold-l);color:#b8860b}.b-l{background:var(--accent-l);color:var(--accent)}
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:1rem 0;justify-content:center}
+.fs{background:var(--surface);border:2px solid var(--accent);border-radius:8px;padding:.6rem .8rem;text-align:center;font-size:.8rem;font-weight:600;min-width:110px}
+.fa{font-size:1.3rem;color:var(--accent);padding:0 .2rem}
+.cite{font-size:.75rem;color:var(--muted);font-style:italic;margin-bottom:.8rem}
+ul,ol{margin:.4rem 0 .9rem 1.3rem}
+li{margin-bottom:.3rem}
+.pb{background:#e0e0e0;border-radius:10px;height:16px;overflow:hidden;margin:.2rem 0}
+.pf{height:100%;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.65rem;font-weight:600}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:.8rem 0}
+.ex{background:#f9f9f9;border:1px solid var(--border);border-radius:6px;padding:.8rem;margin:.8rem 0}
+.ex .lb{font-weight:700;font-size:.8rem;color:var(--accent);text-transform:uppercase;margin-bottom:.2rem}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:1rem}
+.tab{padding:.5rem 1rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;transition:all .2s}
+.tab:hover{color:var(--accent)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tp{display:none}.tp.active{display:block}
+.ref p{font-size:.82rem;padding-left:1.8rem;text-indent:-1.8rem;margin-bottom:.5rem}
+footer{text-align:center;padding:1.5rem 0;color:var(--muted);font-size:.75rem;border-top:1px solid var(--border);margin-top:2rem}
+@media(max-width:700px){.g2{grid-template-columns:1fr}.flow{flex-direction:column}.fa{transform:rotate(90deg)}}
+.section{display:none}.section.active{display:block}
+</style>
+</head>
+<body>
+
+<nav>
+<span class="brand">📖 Manual de Lectura Rápida</span>
+<a href="#" onclick="showSection('intro')" class="active" id="nav-intro">Inicio</a>
+<a href="#" onclick="showSection('p1')" id="nav-p1">I. Fundamentos</a>
+<a href="#" onclick="showSection('p2')" id="nav-p2">II. Técnicas</a>
+<a href="#" onclick="showSection('p3')" id="nav-p3">III. Expediente</a>
+<a href="#" onclick="showSection('p4')" id="nav-p4">IV. Herramientas</a>
+<a href="#" onclick="showSection('p5')" id="nav-p5">V. Riesgos IA</a>
+<a href="#" onclick="showSection('p6')" id="nav-p6">VI. Ejercicios</a>
+<a href="#" onclick="showSection('refs')" id="nav-refs">Refs</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ===== INTRO ===== -->
+<div class="section active" id="sec-intro">
+<h1>Manual de Lectura Rápida de Expedientes Judiciales</h1>
+<p class="sub">Taller Práctico · Facultad de Derecho y Criminología, UANL · Febrero 2026</p>
+
+<div class="author">
+<strong>Autor y Ponente:</strong> Dr. Rogelio López Sánchez<br>
+<span style="font-size:.88rem;color:var(--muted)">Especialista en Derecho Constitucional, Derechos Humanos y Gobernanza Digital</span>
+</div>
+
+<div class="co co-i">
+<div class="co-t">🧠 Base Neurocientífica del Taller</div>
+Este manual integra <strong>11 teorías psicológicas y neurocientíficas</strong> validadas empíricamente, aplicadas al contexto jurídico mexicano. Está diseñado siguiendo principios de diseño minimalista y arquitectura de la información que, según estudios empíricos, incrementan las tasas de conversión hasta en un 50% gracias a la claridad y accesibilidad de la información (Doisz, 2025). Los esquemas cromáticos no-análogos mejoran significativamente la precisión (p=0.001) y los tiempos de respuesta (p=0.029) en la búsqueda de información (Wu et al., 2024). El propio manual demuestra su eficacia: si usted puede leer este texto de forma fluida y rápida, los principios de lectura rápida y diseño cognitivo están funcionando.
+</div>
+
+<h3>Estructura del Manual</h3>
+<table>
+<thead><tr><th>Parte</th><th>Contenido</th><th>Teorías Integradas</th></tr></thead>
+<tbody>
+<tr><td><strong>I. Fundamentos</strong></td><td>Bases neurocientíficas y cognitivas de la lectura</td><td>Miller, Baddeley, Sweller, Kahneman, Tversky, Ebbinghaus, Flavell, Paivio, Mayer, Broadbent, Rayner</td></tr>
+<tr><td><strong>II. Técnicas</strong></td><td>5 técnicas de lectura rápida con parámetros y procedimientos</td><td>Skimming, Scanning, Metaguiding, Chunking, RSVP</td></tr>
+<tr><td><strong>III. Expediente</strong></td><td>Anatomía del expediente judicial: 10 componentes, fojas, sentencia</td><td>CNPCF arts. 939–946; Ley de Amparo</td></tr>
+<tr><td><strong>IV. Herramientas</strong></td><td>Cornell, Buzan, Toulmin, Alexy</td><td>Notas estructuradas, mapas mentales, argumentación</td></tr>
+<tr><td><strong>V. Riesgos IA</strong></td><td>Alucinaciones, caso Mata v. Avianca, protocolo de verificación</td><td>590 casos documentados (Charlotin, 2025)</td></tr>
+<tr><td><strong>VI. Ejercicios</strong></td><td>5 ejercicios prácticos con rúbricas de evaluación</td><td>Progresión de menor a mayor complejidad (Sweller)</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== PARTE I ===== -->
+<div class="section" id="sec-p1">
+<h2>Parte I: Fundamentos Neurocientíficos y Cognitivos</h2>
+<p>La lectura rápida de expedientes judiciales no es un ejercicio de velocidad pura, sino una habilidad cognitiva compleja que descansa sobre las capacidades y limitaciones del sistema de procesamiento humano. Comprender estas bases teóricas es esencial para aplicar las técnicas de manera eficaz y fundamentada.</p>
+
+<h3>1.1 El Número Mágico de Miller (1956)</h3>
+<p>George A. Miller demostró que la memoria a corto plazo humana puede retener aproximadamente <strong>7 ± 2 chunks</strong> (unidades de información) simultáneamente. Un expediente de amparo con 500 fojas debe organizarse mentalmente en bloques temáticos: demanda, contestación, pruebas, alegatos, sentencia. Sin esta organización, la memoria de trabajo se satura. Miller encontró que personas entrenadas en <em>chunking</em> podían recordar hasta 40 dígitos binarios, cuando los sujetos no entrenados solo recordaban 9.</p>
+<p class="cite">(Miller, G. A. (1956). The magical number seven, plus or minus two. <em>Psychological Review</em>, 63(2), 81–97.)</p>
+
+<h3>1.2 Memoria de Trabajo de Baddeley (1974, 2000)</h3>
+<table>
+<thead><tr><th>Componente</th><th>Función</th><th>Aplicación en Expedientes</th></tr></thead>
+<tbody>
+<tr><td><strong>Ejecutivo Central</strong></td><td>Dirige atención y coordina subsistemas</td><td>Decide qué partes leer primero; asigna prioridades</td></tr>
+<tr><td><strong>Bucle Fonológico</strong></td><td>Almacena información verbal (~2 seg)</td><td>Retiene nombres de partes, artículos, fundamentos legales</td></tr>
+<tr><td><strong>Agenda Visoespacial</strong></td><td>Almacena información visual y espacial</td><td>Genera representación mental de la estructura del expediente</td></tr>
+<tr><td><strong>Buffer Episódico</strong> (2000)</td><td>Integra información de múltiples fuentes</td><td>Conecta hechos del caso con precedentes jurisprudenciales</td></tr>
+</tbody>
+</table>
+<p class="cite">(Baddeley, A. D. &amp; Hitch, G. (1974). Working memory; Baddeley, A. D. (2000). <em>Trends in Cognitive Sciences</em>, 4(11), 417–423.)</p>
+
+<h3>1.3 Carga Cognitiva de Sweller (1988)</h3>
+<p>La memoria de trabajo tiene capacidad de ~<strong>4 elementos durante ~20 segundos</strong>. La teoría distingue tres tipos de carga:</p>
+<div class="g2">
+<div class="co co-d"><div class="co-t">⚠️ Carga Extrínseca (Eliminar)</div>Generada por presentación deficiente: foliatura desordenada, escaneos torcidos, falta de índices. Chandler &amp; Sweller (1991): efecto de atención dividida al integrar información dispersa. <strong>Puede y debe reducirse.</strong></div>
+<div class="co co-a"><div class="co-t">✅ Carga Germana (Maximizar)</div>Dedicada a construir esquemas mentales: organizar argumentos, construir mapas mentales, vincular hechos con normas. Sweller demostró que <em>worked examples</em> superan la resolución sin guía.</div>
+</div>
+<div class="co co-g"><div class="co-t">📊 Carga Intrínseca (Gestionar)</div>Inherente a la complejidad del material. Murray (2016): el lenguaje jurídico exhibe mayor entropía que la escritura científica. O'Donnell et al. (2022): lectores muestran <strong>mayor duración de fijación y más regresiones</strong> en cláusulas estatutarias anidadas. Masson &amp; Waldron (1994): no-expertos con lenguaje llano responden con <strong>+29 puntos porcentuales de precisión</strong>.</div>
+<p class="cite">(Sweller, J. (1988). <em>Cognitive Science</em>, 12(2), 257–285; Paas, F. et al. (2003). <em>Educational Psychologist</em>, 38(1), 1–4.)</p>
+
+<h3>1.4 Sistema 1 y Sistema 2 de Kahneman (2011)</h3>
+<table>
+<thead><tr><th>Característica</th><th>Sistema 1 (Rápido)</th><th>Sistema 2 (Lento)</th></tr></thead>
+<tbody>
+<tr><td><strong>Velocidad</strong></td><td>Automático, instantáneo</td><td>Deliberado, requiere esfuerzo</td></tr>
+<tr><td><strong>Procesamiento</strong></td><td>Intuitivo, heurístico</td><td>Analítico, lógico</td></tr>
+<tr><td><strong>Riesgo</strong></td><td>Propenso a sesgos y errores</td><td>Mayor precisión pero fatiga</td></tr>
+<tr><td><strong>Ejemplo jurídico</strong></td><td>Juez decide rápido por casos similares</td><td>Juez analiza exhaustivamente cada argumento</td></tr>
+</tbody>
+</table>
+
+<div class="co co-d"><div class="co-t">Sesgos Documentados en la Función Judicial</div>
+<ul>
+<li><strong>Sesgo de confirmación:</strong> Buscar evidencia que confirme hipótesis inicial (Peer &amp; Gamliel, 2013)</li>
+<li><strong>Sesgo de anclaje:</strong> Primera cifra influye desproporcionadamente — si el primer peritaje dice $5M, los demás se evalúan contra esa ancla (Tversky &amp; Kahneman, 1974)</li>
+<li><strong>Sesgo de disponibilidad:</strong> Sobrevalorar casos recientes o mediáticos</li>
+<li><strong>Efecto de marco:</strong> "92% supervivencia" vs. "8% mortalidad" — misma cifra, percepción distinta</li>
+<li><strong>Fluencia cognitiva:</strong> Información bien presentada se percibe como más verdadera (clave para riesgo de IA)</li>
+</ul>
+</div>
+<p class="cite">(Kahneman, D. (2011). <em>Thinking, fast and slow</em>. FSG; Gravett, W. H. (2017). Jueces recurren a pensamiento heurístico cuando el flujo de decisiones es continuo.)</p>
+
+<h3>1.5 Curva del Olvido de Ebbinghaus (1885)</h3>
+<p>Tras aprender material nuevo: <strong>50% de olvido en 30 minutos</strong>, 70-80% en 24 horas. Murre &amp; Dros (2015) replicaron exitosamente estos resultados con una posible "subida" a las 24 horas por efecto del sueño. Solución: <strong>repetición espaciada</strong> — notas Cornell inmediatas → revisar a 24h → mapa mental a 48-72h → redactar proyecto como refuerzo.</p>
+<p class="cite">(Ebbinghaus, H. (1885). <em>Über das Gedächtnis</em>. Duncker &amp; Humblot; Murre &amp; Dros (2015). <em>PLOS ONE</em>, 10(7).)</p>
+
+<h3>1.6 Metacognición, Codificación Dual y Percepción Visual</h3>
+<p><strong>Metacognición (Flavell, 1979):</strong> Monitoreo ("¿Estoy comprendiendo?"), planificación ("¿Qué técnica aplico?"), evaluación ("¿Es suficiente la información?"). <strong>Codificación Dual (Paivio, 1991):</strong> Canal verbal + visual = retención superior. <strong>Mayer (2009):</strong> Principios de coherencia, señalización, segmentación, modalidad. <strong>Rayner (1998):</strong> Sacadas de 7-9 caracteres, fijaciones de 200-250 ms; sans-serif menos regresiones en pantalla. <strong>Broadbent (1958):</strong> Filtro atencional — no se puede leer expediente y atender llamadas simultáneamente.</p>
+
+<div class="co co-i"><div class="co-t">🏛️ Respaldo Institucional: Programas de Neuroderecho</div>
+<ul>
+<li><strong>Harvard Law School:</strong> Seminario "Law and Neuroscience" — neurociencia y derecho penal, neuroimagen, detección de engaño</li>
+<li><strong>Vanderbilt University:</strong> Primer J.D./Ph.D. dual en neuroderecho de EE.UU. (2010); 25+ escuelas con cursos desde 2006</li>
+<li><strong>Stanford / Gruter Institute:</strong> Coloquios para jueces federales y abogados</li>
+<li><strong>Duke University:</strong> Cluster "Cognitive Neuroscience and Law" — neuroanatomía, cerebro y lenguaje</li>
+<li><strong>University of Pennsylvania:</strong> Center for Neuroscience and Society (2009)</li>
+<li><strong>Columbia University:</strong> "Neurolaw: Exploring Legal Reasoning" — pensamiento crítico, case studies</li>
+<li><strong>Michigan State:</strong> Certificado de posgrado de 12 créditos en Neuroscience &amp; the Law</li>
+<li><strong>MacArthur Foundation:</strong> Proyecto de $10M USD (2007), 40+ proyectos, Sandra Day O'Connor presidenta honoraria</li>
+<li><strong>IINEJ Panamá:</strong> Diplomado en Neuroderecho Penal — 4 módulos</li>
+</ul>
+</div>
+</div>
+
+<!-- ===== PARTE II ===== -->
+<div class="section" id="sec-p2">
+<h2>Parte II: Las Cinco Técnicas de Lectura Rápida</h2>
+<p>Cada técnica tiene un perfil distinto de velocidad, comprensión y aplicación. El lector experto las combina según la fase de lectura y el objetivo específico.</p>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab(this,'t-skim')">Skimming</div>
+<div class="tab" onclick="showTab(this,'t-scan')">Scanning</div>
+<div class="tab" onclick="showTab(this,'t-meta')">Metaguiding</div>
+<div class="tab" onclick="showTab(this,'t-chunk')">Chunking</div>
+<div class="tab" onclick="showTab(this,'t-rsvp')">RSVP</div>
+</div>
+
+<div class="tp active" id="t-skim">
+<h3>Skimming (Lectura Superficial)</h3>
+<div class="co co-a"><div class="co-t">Definición</div>Pasear la vista rápidamente por el texto para obtener una idea general. El lector capta puntos clave y estructura organizativa: títulos, subtítulos, negritas, primeros y últimos párrafos (British Council, 2024).</div>
+<table><thead><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>
+<tr><td>Velocidad</td><td>700–1,000 ppm</td></tr>
+<tr><td>Comprensión</td><td>40–60%</td></tr>
+<tr><td>Uso óptimo</td><td>Primera lectura del expediente; identificar estructura general</td></tr>
+<tr><td>Base teórica</td><td>Broadbent (1958): filtro atencional selectivo; Rayner (1998): sacadas oculares largas</td></tr>
+</tbody></table>
+<h4>Procedimiento en Expedientes</h4>
+<ol>
+<li><strong>Leer carátula e índice:</strong> identificar partes, juez, tipo de procedimiento</li>
+<li><strong>Revisar encabezados</strong> de cada promoción: "Demanda de amparo", "Auto admisorio", etc.</li>
+<li><strong>Escanear primeros y últimos párrafos</strong> de cada documento — contienen pretensión y conclusión</li>
+<li><strong>Identificar palabras clave:</strong> "acto reclamado", "conceptos de violación", "pruebas"</li>
+<li><strong>Marcar</strong> secciones que requieran lectura profunda</li>
+</ol>
+<div class="ex"><div class="lb">Ejemplo: Skimming de Amparo Indirecto</div>En 300 fojas, el skimming toma ~15 minutos. El proyectista identifica: (a) se impugna orden de cateo; (b) arts. 16 y 14 CPEUM; (c) autoridad: juez de control; (d) 3 testimoniales y 2 periciales. Con esta panorámica, prioriza lectura profunda del auto de cateo y las periciales.</div>
+<p class="cite">(Panchi &amp; Perlaza, 2019: "apropiadas y efectivas"; Putra, 2021: "reducir documentos para leerlos en corto período")</p>
+</div>
+
+<div class="tp" id="t-scan">
+<h3>Scanning (Lectura de Barrido)</h3>
+<div class="co co-a"><div class="co-t">Definición</div>Lectura rápida y selectiva para encontrar información específica: nombres, fechas, cifras, artículos legales concretos. No busca comprensión global sino localización precisa (British Council, 2024).</div>
+<table><thead><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>
+<tr><td>Velocidad</td><td>1,000–1,500 ppm</td></tr>
+<tr><td>Comprensión global</td><td>20–30% (90-95% del dato buscado)</td></tr>
+<tr><td>Uso óptimo</td><td>Localizar fechas, montos, artículos, nombres, fojas</td></tr>
+<tr><td>Base teórica</td><td>Rayner (1998): fijaciones selectivas; Broadbent (1958): filtrado</td></tr>
+</tbody></table>
+<h4>Procedimiento</h4>
+<ol>
+<li><strong>Definir previamente</strong> qué dato se busca</li>
+<li><strong>Señales visuales:</strong> números, fechas DD/MM/AAAA, negritas, comillas</li>
+<li><strong>Patrón zigzag</strong> o columnar, omitiendo oraciones irrelevantes</li>
+<li><strong>Detenerse solo</strong> al localizar la información</li>
+</ol>
+<div class="ex"><div class="lb">Ejemplo: Scanning en Informe Justificado</div>El proyectista busca la fecha de notificación del acto reclamado en 40 fojas. En ~3 minutos localiza: "Con fecha veintitrés de octubre de dos mil veinticinco, se practicó la notificación personal..." (foja 287).</div>
+</div>
+
+<div class="tp" id="t-meta">
+<h3>Metaguiding (Guía Metacognitiva)</h3>
+<div class="co co-a"><div class="co-t">Definición</div>Usar puntero físico o dedo para guiar el movimiento ocular. Reduce regresiones (relecturas involuntarias) y mantiene ritmo constante. Fundamentado en la investigación de Rayner sobre sacadas oculares.</div>
+<table><thead><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>
+<tr><td>Velocidad</td><td>300–500 ppm</td></tr>
+<tr><td>Comprensión</td><td>70–85%</td></tr>
+<tr><td>Uso óptimo</td><td>Lectura profunda de fundamentos jurídicos, sentencias, conceptos de violación</td></tr>
+<tr><td>Base teórica</td><td>Rayner (1998, 2009): reducción de regresiones oculares; eye-tracking con menos fijaciones</td></tr>
+</tbody></table>
+<h4>Procedimiento</h4>
+<ol>
+<li>Colocar dedo o bolígrafo bajo la línea que se lee</li>
+<li>Mover de izquierda a derecha a ritmo ligeramente superior al natural</li>
+<li>No detenerse ni regresar — marcar para relectura posterior</li>
+<li>Incrementar gradualmente la velocidad</li>
+</ol>
+</div>
+
+<div class="tp" id="t-chunk">
+<h3>Chunking (Lectura por Bloques)</h3>
+<div class="co co-a"><div class="co-t">Definición</div>Aplicación directa del principio de Miller (1956): agrupar 3-5 palabras en una sola fijación visual. El ojo no se detiene en cada palabra individual sino en bloques semánticos. Personas entrenadas recordaban hasta 40 dígitos binarios vs. 9 sin entrenamiento.</div>
+<table><thead><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>
+<tr><td>Velocidad</td><td>400–600 ppm</td></tr>
+<tr><td>Comprensión</td><td>75–90%</td></tr>
+<tr><td>Uso óptimo</td><td>Cuerpo del expediente: hechos probados, valoración, considerandos</td></tr>
+<tr><td>Base teórica</td><td>Miller (1956): agrupamiento; Baddeley (2000): buffer episódico</td></tr>
+</tbody></table>
+<div class="ex"><div class="lb">Ejemplo: Chunking de un Considerando</div>
+<strong>Palabra por palabra:</strong> "En — el — caso — que — nos — ocupa, — la — parte — actora — demostró — mediante — prueba — pericial..." (14 fijaciones)<br>
+<strong>Por chunks:</strong> "[En el caso que nos ocupa] — [la parte actora demostró] — [mediante prueba pericial]..." (3 fijaciones) → Velocidad ×3 sin perder comprensión</div>
+</div>
+
+<div class="tp" id="t-rsvp">
+<h3>RSVP (Rapid Serial Visual Presentation)</h3>
+<div class="co co-a"><div class="co-t">Definición</div>Técnica acuñada por Mary Potter (MIT): palabras presentadas una por una en punto fijo de pantalla, eliminando movimientos oculares. Potter demostró que "una oración puede ser comprendida a 12 palabras por segundo". Velocidad promedio: ~238 ppm; con RSVP: hasta 900 ppm.</div>
+<table><thead><tr><th>Parámetro</th><th>Valor</th></tr></thead><tbody>
+<tr><td>Velocidad</td><td>500–1,000 ppm (hasta 900 documentado)</td></tr>
+<tr><td>Comprensión</td><td>50–70%</td></tr>
+<tr><td>Uso óptimo</td><td>Revisión rápida de expedientes electrónicos; prelectura digital</td></tr>
+<tr><td>Herramientas</td><td>Spreeder, ReadSpeeder, Spritz, AccelaReader</td></tr>
+</tbody></table>
+<div class="co co-g"><div class="co-t">⚠️ Limitación</div>Sujetos con baja visión no muestran beneficio hasta texto 8x su umbral de agudeza. Secuencias sin contexto: solo 2-3 palabras se recuerdan. Más útil como prelectura que como estudio profundo.</div>
+<p class="cite">(Potter, M. C. (1984). <em>New methods in reading comprehension research</em>. Erlbaum; Al-Rashidy, 2023.)</p>
+</div>
+
+<h3 style="margin-top:1.5rem">Comparativa de las Cinco Técnicas</h3>
+<table>
+<thead><tr><th>Técnica</th><th>Velocidad</th><th>Comprensión</th><th>Fase del Expediente</th><th>Nivel</th></tr></thead>
+<tbody>
+<tr><td><strong>Skimming</strong></td><td>700–1,000</td><td><div class="pb"><div class="pf" style="width:50%;background:var(--gold)">40-60%</div></div></td><td>Panorámica inicial</td><td><span class="badge b-l">Básico</span></td></tr>
+<tr><td><strong>Scanning</strong></td><td>1,000–1,500</td><td><div class="pb"><div class="pf" style="width:25%;background:var(--info)">20-30%</div></div></td><td>Localización de datos</td><td><span class="badge b-l">Básico</span></td></tr>
+<tr><td><strong>Metaguiding</strong></td><td>300–500</td><td><div class="pb"><div class="pf" style="width:78%;background:var(--accent)">70-85%</div></div></td><td>Lectura profunda</td><td><span class="badge b-m">Intermedio</span></td></tr>
+<tr><td><strong>Chunking</strong></td><td>400–600</td><td><div class="pb"><div class="pf" style="width:83%;background:var(--accent)">75-90%</div></div></td><td>Lectura analítica</td><td><span class="badge b-m">Intermedio</span></td></tr>
+<tr><td><strong>RSVP</strong></td><td>500–1,000</td><td><div class="pb"><div class="pf" style="width:60%;background:var(--gold)">50-70%</div></div></td><td>Revisión electrónica</td><td><span class="badge b-h">Avanzado</span></td></tr>
+</tbody>
+</table>
+
+<h3>Protocolo de Lectura en Tres Fases</h3>
+<div class="flow">
+<div class="fs" style="background:var(--accent-l)"><strong>Fase 1</strong><br>SKIMMING<br><span style="font-size:.72rem">Panorámica · 15-20 min</span></div>
+<div class="fa">→</div>
+<div class="fs" style="background:var(--gold-l)"><strong>Fase 2</strong><br>SCANNING<br><span style="font-size:.72rem">Datos clave · 10-15 min</span></div>
+<div class="fa">→</div>
+<div class="fs" style="background:var(--info-l)"><strong>Fase 3</strong><br>METAGUIDING + CHUNKING<br><span style="font-size:.72rem">Lectura profunda · 30-60 min</span></div>
+</div>
+</div>
+
+<!-- ===== PARTE III ===== -->
+<div class="section" id="sec-p3">
+<h2>Parte III: Anatomía del Expediente Judicial</h2>
+<p>El expediente es un conjunto ordenado cronológicamente de actuaciones, documentos, pruebas y resoluciones. Su estructura responde al CNPCF (arts. 939–946) y legislación procesal aplicable.</p>
+
+<h3>3.1 Los 10 Componentes del Expediente</h3>
+<table>
+<thead><tr><th>#</th><th>Componente</th><th>Contenido</th><th>Prioridad</th><th>Técnica</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Carátula</strong></td><td>Número, juzgado, partes, tipo de juicio</td><td><span class="badge b-h">Alta</span></td><td>Skimming (30 seg)</td></tr>
+<tr><td>2</td><td><strong>Índice</strong></td><td>Relación cronológica con número de foja</td><td><span class="badge b-h">Alta</span></td><td>Skimming (2 min)</td></tr>
+<tr><td>3</td><td><strong>Demanda</strong></td><td>Hechos, pretensiones, fundamentos, petitorios</td><td><span class="badge b-h">Alta</span></td><td>Chunking + Metaguiding</td></tr>
+<tr><td>4</td><td><strong>Contestación / Informe</strong></td><td>Excepciones, aceptación/negación, pruebas</td><td><span class="badge b-h">Alta</span></td><td>Chunking + Metaguiding</td></tr>
+<tr><td>5</td><td><strong>Autos y Acuerdos</strong></td><td>Decisiones interlocutorias</td><td><span class="badge b-m">Media</span></td><td>Scanning</td></tr>
+<tr><td>6</td><td><strong>Pruebas Documentales</strong></td><td>Contratos, escrituras, oficios</td><td><span class="badge b-h">Alta</span></td><td>Scanning + Chunking</td></tr>
+<tr><td>7</td><td><strong>Pruebas Periciales</strong></td><td>Dictámenes de expertos</td><td><span class="badge b-h">Alta</span></td><td>Metaguiding</td></tr>
+<tr><td>8</td><td><strong>Pruebas Testimoniales</strong></td><td>Declaraciones, interrogatorios</td><td><span class="badge b-m">Media</span></td><td>Chunking</td></tr>
+<tr><td>9</td><td><strong>Alegatos</strong></td><td>Argumentos finales</td><td><span class="badge b-m">Media</span></td><td>Skimming + Chunking</td></tr>
+<tr><td>10</td><td><strong>Sentencia</strong></td><td>Resultandos, considerandos, resolutivos</td><td><span class="badge b-h">Alta</span></td><td>Metaguiding + Chunking</td></tr>
+</tbody>
+</table>
+
+<h3>3.2 Estructura de la Sentencia</h3>
+<div class="g2">
+<div><h4>Resultandos</h4><ul><li>Narración cronológica</li><li>Técnica: Skimming (5-10 min)</li><li>Marcar hitos procesales</li></ul></div>
+<div><h4>Considerandos</h4><ul><li>Análisis jurídico y valoración</li><li>Técnica: Metaguiding + Chunking (20-40 min)</li><li>Lectura profunda y analítica</li></ul></div>
+</div>
+<div class="co co-a"><div class="co-t">Puntos Resolutivos (Decisión)</div>Concede, niega o sobresee. <strong>No se aplica lectura rápida aquí; se aplica lectura precisa palabra por palabra.</strong> Cada término tiene consecuencias jurídicas específicas.</div>
+
+<h3>3.3 Las Fojas</h3>
+<p>Cada hoja = una "foja" numerada con sello oficial (CNPCF, art. 939).</p>
+<div class="co co-d"><div class="co-t">Error Común</div>Omitir las <strong>fojas vuelta</strong>, donde frecuentemente se encuentran notificaciones, acuses de recibo y diligencias que determinan plazos procesales y oportunidad de la demanda.</div>
+</div>
+
+<!-- ===== PARTE IV ===== -->
+<div class="section" id="sec-p4">
+<h2>Parte IV: Herramientas Auxiliares</h2>
+<p>Las técnicas de lectura extraen información; las herramientas la organizan, retienen y transforman en argumentos jurídicos.</p>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab(this,'t-cornell')">Cornell</div>
+<div class="tab" onclick="showTab(this,'t-buzan')">Mapas Mentales</div>
+<div class="tab" onclick="showTab(this,'t-toulmin')">Toulmin</div>
+<div class="tab" onclick="showTab(this,'t-alexy')">Alexy</div>
+</div>
+
+<div class="tp active" id="t-cornell">
+<h3>4.1 Método de Notas Cornell</h3>
+<p>Desarrollado en los 1950 por Walter Pauk (Universidad de Cornell). Su eficacia se explica por la Teoría de la Carga Cognitiva: al estructurar en tres áreas, se reduce la carga extrínseca y se maximiza la germana.</p>
+<table><thead><tr><th>Sección</th><th>Ubicación</th><th>Contenido</th><th>Función Cognitiva</th></tr></thead><tbody>
+<tr><td><strong>Columna de Claves</strong></td><td>Margen izquierdo (~6 cm)</td><td>Preguntas, palabras clave, conceptos</td><td>Esquemas (Sweller); recuperación activa (Ebbinghaus)</td></tr>
+<tr><td><strong>Columna de Notas</strong></td><td>Área principal derecha</td><td>Ideas, citas, argumentos, datos</td><td>Codificación verbal (Paivio); procesamiento profundo</td></tr>
+<tr><td><strong>Resumen</strong></td><td>Parte inferior (5-7 líneas)</td><td>Síntesis en palabras propias</td><td>Consolidación a LP; metacognición (Flavell)</td></tr>
+</tbody></table>
+<div class="ex"><div class="lb">Ejemplo: Notas Cornell — Auto de Vinculación</div>
+<table><thead><tr><th style="width:35%">Claves</th><th>Notas</th></tr></thead><tbody>
+<tr><td>¿Qué delito?<br>¿Datos suficientes?<br>¿Prisión preventiva?</td><td>• Delito: robo calificado con violencia (arts. 367, 372 CPF)<br>• 3 datos: declaración víctima, video C5, dictamen lesiones<br>• Prisión preventiva oficiosa (art. 19 CPEUM)<br>• Defensa: insuficiencia → Juez: "razonable probabilidad"<br>• Foja 45: video con vestimenta similar (no identidad)</td></tr>
+<tr><td colspan="2"><strong>Resumen:</strong> Vinculación por robo calificado con violencia. 3 datos satisfacen estándar. Prisión oficiosa. Punto débil: identificación visual imprecisa (vestimenta ≠ identidad).</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<div class="tp" id="t-buzan">
+<h3>4.2 Mapas Mentales de Buzan</h3>
+<p>Tony Buzan (1970s), fundamentado en <strong>Codificación Dual (Paivio, 1991)</strong>: texto + imagen = retención duplicada. Activa bucle fonológico + agenda visoespacial (Baddeley, 2000).</p>
+<h4>Reglas de Construcción</h4>
+<ol>
+<li><strong>Centro:</strong> Tema principal con imagen/ícono</li>
+<li><strong>Ramas principales:</strong> 5-7 categorías con colores distintos (límite de Miller)</li>
+<li><strong>Sub-ramas:</strong> Detalles, argumentos, pruebas — una palabra o frase corta por línea</li>
+<li><strong>Conexiones:</strong> Líneas que vinculan ramas relacionadas</li>
+<li><strong>Jerarquía:</strong> Del centro (general) hacia afuera (particular)</li>
+</ol>
+<div class="ex"><div class="lb">Ejemplo: Mapa Mental — Amparo contra Detención Arbitraria</div>
+<p style="text-align:center;font-weight:700;color:var(--accent)">Centro: "Amparo — Detención Arbitraria"</p>
+<ul>
+<li>🔴 <strong>Rama 1 — Acto reclamado:</strong> Detención sin orden → sin flagrancia → sin caso urgente</li>
+<li>🔵 <strong>Rama 2 — Derechos:</strong> Art. 16 (mandamiento) → Art. 14 (debido proceso) → Art. 1 (pro persona)</li>
+<li>🟢 <strong>Rama 3 — Pruebas quejoso:</strong> Video detención → declaración → 2 testimoniales vecinos</li>
+<li>🟡 <strong>Rama 4 — Autoridad:</strong> Alega flagrancia → foja 123: informe policial contradice video</li>
+<li>🟣 <strong>Rama 5 — Precedentes:</strong> Tesis 1a./J.45/2020: "inmediatez temporal y personal"</li>
+</ul>
+</div>
+</div>
+
+<div class="tp" id="t-toulmin">
+<h3>4.3 Modelo de Argumentación de Toulmin (1958)</h3>
+<p>Stephen Toulmin superó la lógica formal silogística reconociendo que los argumentos jurídicos operan con premisas probables. Identificó <strong>6 componentes</strong>:</p>
+<table><thead><tr><th>Componente</th><th>Definición</th><th>Ejemplo (Detención Arbitraria)</th></tr></thead><tbody>
+<tr><td><strong>Claim</strong></td><td>Lo que se quiere probar</td><td>"La detención fue ilegal; debe concederse amparo"</td></tr>
+<tr><td><strong>Grounds</strong></td><td>Hechos que sustentan</td><td>Video: no hubo flagrancia; policías llegaron 45 min después</td></tr>
+<tr><td><strong>Warrant</strong></td><td>Conexión lógica datos→pretensión</td><td>Art. 16: exige orden judicial, flagrancia o caso urgente</td></tr>
+<tr><td><strong>Backing</strong></td><td>Soporte adicional para la garantía</td><td>Tesis 1a./J.45/2020: inmediatez temporal y personal</td></tr>
+<tr><td><strong>Qualifier</strong></td><td>Grado de certeza</td><td>"Probablemente" / "Salvo caso urgente formal"</td></tr>
+<tr><td><strong>Rebuttal</strong></td><td>Excepciones/contraargumentos</td><td>"A menos que haya caso urgente conforme al CNPP"</td></tr>
+</tbody></table>
+<div class="co co-i"><div class="co-t">Aplicación en Derechos Humanos</div>El modelo expone vacíos lógicos o supuestos infundados, protegiendo la integridad de discusiones sobre justicia, igualdad y dignidad. Facilita identificar cuándo los argumentos se basan en premisas engañosas (CIRIS, 2024).</div>
+<p class="cite">(Toulmin, S. E. (1958). <em>The uses of argument</em>. Cambridge University Press.)</p>
+</div>
+
+<div class="tp" id="t-alexy">
+<h3>4.4 Argumentación Jurídica de Alexy</h3>
+<p>Robert Alexy: derechos fundamentales como "mandatos de optimización". El <strong>test de proporcionalidad</strong>:</p>
+<div class="flow">
+<div class="fs" style="background:var(--accent-l)"><strong>1. Idoneidad</strong><br><span style="font-size:.72rem">¿Medida apta para fin legítimo?</span></div>
+<div class="fa">→</div>
+<div class="fs" style="background:var(--gold-l)"><strong>2. Necesidad</strong><br><span style="font-size:.72rem">¿Alternativa menos restrictiva?</span></div>
+<div class="fa">→</div>
+<div class="fs" style="background:var(--danger-l)"><strong>3. Proporcionalidad s.s.</strong><br><span style="font-size:.72rem">¿Beneficios &gt; costos en derechos?</span></div>
+</div>
+<p><strong>Fórmula del Peso:</strong> Producto de peso abstracto (W) × intensidad de restricción (I) × fiabilidad empírica (R) de ambos principios, divididos. Si &gt;1, prevalece principio i.</p>
+<div class="co co-g"><div class="co-t">Justificación Interna y Externa</div>
+<p><strong>Interna:</strong> La conclusión se deriva lógicamente de las premisas (silogismo). <strong>Externa:</strong> Valida cada premisa — interpretación, jurisprudencia, valoración probatoria.</p></div>
+
+<div class="ex"><div class="lb">Ejemplo Integrado Toulmin-Alexy: Prohibición de Manifestaciones</div>
+<p><strong>Caso:</strong> Estado prohíbe manifestaciones en centro histórico. Ciudadanos impugnan vía amparo.</p>
+<p><strong>Toulmin:</strong> Claim: prohibición inconstitucional. Grounds: art. 9 CPEUM protege reunión. Warrant: derechos solo se restringen proporcionalmente (art. 1). Rebuttal: estado alega patrimonio histórico.</p>
+<p><strong>Alexy:</strong> Idoneidad: prohibición total protege patrimonio, pero excesivamente. Necesidad: existen alternativas — horarios, rutas, aforo. Proporcionalidad s.s.: costo en libertad de reunión &gt; beneficio marginal → Derecho de manifestación prevalece, sujeto a regulación razonable.</p>
+</div>
+<p class="cite">(Alexy, R. (2000). <em>Ratio Juris</em>, 13(3), 294–304; Alexy, R. (2002). <em>A theory of constitutional rights</em>. OUP.)</p>
+</div>
+</div>
+
+<!-- ===== PARTE V ===== -->
+<div class="section" id="sec-p5">
+<h2>Parte V: Riesgos de la IA en Expedientes Electrónicos</h2>
+<p>El creciente uso de IA (ChatGPT, Claude, Gemini) para resumir expedientes conlleva riesgos significativos que el operador jurídico debe conocer y gestionar.</p>
+
+<h3>5.1 Alucinaciones de IA</h3>
+<p>Respuestas <strong>plausibles pero fácticamente incorrectas</strong>, presentadas con la misma confianza que respuestas correctas.</p>
+<div class="co co-d"><div class="co-t">📊 Charlotin (2025): 590 casos globales documentados</div>Incluyen jurisprudencia inexistente, artículos inventados, precedentes fabricados y datos procesales incorrectos en contextos legales.</div>
+
+<h3>5.2 Caso Paradigmático: Mata v. Avianca, Inc. (2023)</h3>
+<p>El abogado Steven Schwartz presentó ante el Tribunal Federal del Distrito Sur de Nueva York un escrito con <strong>6 casos judiciales completamente inventados por ChatGPT</strong>:</p>
+<ul>
+<li>Incluía "Varghese v. China Southern Airlines" y "Shaboon v. Egyptair" — <strong>ninguno existía</strong></li>
+<li>ChatGPT generó nombres, números de expediente, citas de páginas y razonamientos verosímiles pero ficticios</li>
+<li>El juez Castel impuso <strong>multa de $5,000 USD</strong> por mala conducta procesal</li>
+<li>El tribunal enfatizó el deber de verificar toda fuente citada</li>
+</ul>
+<div class="co co-i"><div class="co-t">Conexión con Kahneman: Sistema 1 y Confianza en IA</div>El abogado procesó las respuestas con Sistema 1 ("se ve correcto, tiene formato correcto, debe ser correcto"), sin activar Sistema 2. La IA explota la heurística de <strong>fluencia cognitiva</strong>: información clara y profesional se percibe como más confiable, independientemente de su veracidad.</div>
+
+<h3>5.3 Tipología de Alucinaciones</h3>
+<table>
+<thead><tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th><th>Riesgo</th></tr></thead>
+<tbody>
+<tr><td><strong>Jurisprudencia fabricada</strong></td><td>Tesis/sentencias inexistentes</td><td>"Tesis 2a./J.15/2024" que no existe en el SJF</td><td><span class="badge b-h">Crítico</span></td></tr>
+<tr><td><strong>Artículos inventados</strong></td><td>Artículos de ley alterados</td><td>"Art. 167 bis del CNPP" (inexistente)</td><td><span class="badge b-h">Crítico</span></td></tr>
+<tr><td><strong>Datos procesales incorrectos</strong></td><td>Fechas, nombres alterados</td><td>Confundir quejoso con tercero interesado</td><td><span class="badge b-h">Crítico</span></td></tr>
+<tr><td><strong>Razonamiento defectuoso</strong></td><td>Falacias con estructura convincente</td><td>Estándar probatorio incorrecto</td><td><span class="badge b-m">Alto</span></td></tr>
+<tr><td><strong>Mezcla de jurisdicciones</strong></td><td>Normativa de diferentes países</td><td>Jurisprudencia española como vinculante en MX</td><td><span class="badge b-m">Alto</span></td></tr>
+<tr><td><strong>Anacronismos normativos</strong></td><td>Normas derogadas como vigentes</td><td>CFPC (derogado) en lugar de CNPCF</td><td><span class="badge b-m">Alto</span></td></tr>
+</tbody>
+</table>
+
+<h3>5.4 Protocolo de Verificación en 6 Pasos</h3>
+<div class="flow">
+<div class="fs"><strong>1</strong><br>Identificar<br>citas IA</div><div class="fa">→</div>
+<div class="fs"><strong>2</strong><br>Verificar en<br>SJF/DOF</div><div class="fa">→</div>
+<div class="fs"><strong>3</strong><br>Contrastar<br>legislación</div><div class="fa">→</div>
+<div class="fs"><strong>4</strong><br>Validar datos<br>procesales</div><div class="fa">→</div>
+<div class="fs"><strong>5</strong><br>Revisar lógica<br>Toulmin/Alexy</div><div class="fa">→</div>
+<div class="fs"><strong>6</strong><br>Documentar<br>verificación</div>
+</div>
+<div class="co co-a"><div class="co-t">Regla de Oro</div><strong>La IA es un auxiliar de productividad, nunca un sustituto del criterio jurídico.</strong> Toda información generada por IA debe tratarse como hipótesis a verificar, no como hecho confirmado. El juzgador es responsable de cada dato que incorpora a sus resoluciones.</div>
+</div>
+
+<!-- ===== PARTE VI ===== -->
+<div class="section" id="sec-p6">
+<h2>Parte VI: Ejercicios Prácticos con Rúbricas</h2>
+<p>Secuenciados de menor a mayor complejidad siguiendo el principio de Sweller para gestionar la carga cognitiva intrínseca.</p>
+
+<h3>Ejercicio 1: Skimming de Expediente</h3>
+<table><thead><tr><th>Aspecto</th><th>Detalle</th></tr></thead><tbody>
+<tr><td><strong>Objetivo</strong></td><td>Identificar estructura y puntos clave de 50 fojas en 10 minutos</td></tr>
+<tr><td><strong>Procedimiento</strong></td><td>1) Carátula e índice (1 min); 2) Encabezados de promociones (3 min); 3) Primer/último párrafo de demanda y contestación (4 min); 4) Anotar 5 hallazgos clave (2 min)</td></tr>
+</tbody></table>
+
+<h3>Ejercicio 2: Scanning de Datos</h3>
+<table><thead><tr><th>Aspecto</th><th>Detalle</th></tr></thead><tbody>
+<tr><td><strong>Objetivo</strong></td><td>Localizar 10 datos específicos en 100 fojas en 15 minutos</td></tr>
+<tr><td><strong>Datos</strong></td><td>Fecha demanda, autoridad, acto reclamado, arts. constitucionales, fecha del acto, número de pruebas, sentido del informe, tercero interesado, monto, fecha de audiencia</td></tr>
+</tbody></table>
+
+<h3>Ejercicio 3: Notas Cornell</h3>
+<table><thead><tr><th>Aspecto</th><th>Detalle</th></tr></thead><tbody>
+<tr><td><strong>Objetivo</strong></td><td>Elaborar notas Cornell de los Considerandos (~20 fojas) en 35 minutos</td></tr>
+<tr><td><strong>Procedimiento</strong></td><td>1) Metaguiding (15 min); 2) Columna de claves (5 min); 3) Columna de notas (10 min); 4) Resumen 5-7 líneas (5 min)</td></tr>
+</tbody></table>
+
+<h3>Ejercicio 4: Mapa Mental</h3>
+<table><thead><tr><th>Aspecto</th><th>Detalle</th></tr></thead><tbody>
+<tr><td><strong>Objetivo</strong></td><td>Construir mapa mental completo del expediente en 30 minutos</td></tr>
+<tr><td><strong>Procedimiento</strong></td><td>1) Centro: caso (1 min); 2) 5-7 ramas con colores (5 min); 3) Sub-ramas (15 min); 4) Conexiones (5 min); 5) Revisión (4 min)</td></tr>
+</tbody></table>
+
+<h3>Ejercicio 5: Análisis Toulmin-Alexy</h3>
+<table><thead><tr><th>Aspecto</th><th>Detalle</th></tr></thead><tbody>
+<tr><td><strong>Objetivo</strong></td><td>Descomponer argumentos y evaluar proporcionalidad en 45 minutos</td></tr>
+<tr><td><strong>Procedimiento</strong></td><td>1) Toulmin del quejoso: 6 componentes (10 min); 2) Toulmin de la autoridad (10 min); 3) Test Alexy: idoneidad, necesidad, proporcionalidad s.s. (15 min); 4) Conclusión razonada (10 min)</td></tr>
+</tbody></table>
+
+<h3>Rúbrica General</h3>
+<table>
+<thead><tr><th>Criterio</th><th>Excelente (10)</th><th>Bueno (8)</th><th>Regular (6)</th><th>Insuficiente (4)</th></tr></thead>
+<tbody>
+<tr><td>Identificación</td><td>Completa y precisa</td><td>Principales identificados</td><td>Parcial</td><td>Insuficiente</td></tr>
+<tr><td>Técnica aplicada</td><td>Correcta y fluida</td><td>Correcta con ajustes</td><td>Parcial</td><td>Incorrecta</td></tr>
+<tr><td>Tiempo</td><td>Dentro del límite</td><td>Excede 10-20%</td><td>Excede 20-50%</td><td>No completa</td></tr>
+<tr><td>Análisis</td><td>Doctrina + ejemplos</td><td>Con ejemplos</td><td>Superficial</td><td>Sin análisis</td></tr>
+<tr><td>Argumentación</td><td>Toulmin + Alexy integrados</td><td>Un modelo aplicado</td><td>Mención sin aplicar</td><td>Sin argumentación</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== REFERENCIAS ===== -->
+<div class="section ref" id="sec-refs">
+<h2>Referencias</h2>
+<p>Alexy, R. (2000). On the structure of legal principles. <em>Ratio Juris</em>, 13(3), 294–304.</p>
+<p>Alexy, R. (2002). <em>A theory of constitutional rights</em> (J. Rivers, Trad.). Oxford University Press.</p>
+<p>Al-Rashidy, A. S. M. (2023). The effect of RSVP technology on EFL learners' reading speed. <em>ERIC</em>, EJ1400330.</p>
+<p>Baddeley, A. D. (2000). The episodic buffer: A new component of working memory? <em>Trends in Cognitive Sciences</em>, 4(11), 417–423.</p>
+<p>Baddeley, A. D., &amp; Hitch, G. (1974). Working memory. En G. H. Bower (Ed.), <em>The psychology of learning and motivation</em> (Vol. 8, pp. 47–89). Academic Press.</p>
+<p>Broadbent, D. E. (1958). <em>Perception and communication</em>. Pergamon Press.</p>
+<p>Buzan, T. (2005). <em>The ultimate book of mind maps</em>. Thorsons.</p>
+<p>Charlotin, D. (2025). AI hallucination tracker: 590 cases in legal contexts documented globally.</p>
+<p>Ebbinghaus, H. (1885). <em>Über das Gedächtnis: Untersuchungen zur experimentellen Psychologie</em>. Duncker &amp; Humblot.</p>
+<p>Flavell, J. H. (1979). Metacognition and cognitive monitoring. <em>American Psychologist</em>, 34(10), 906–911.</p>
+<p>Gravett, W. H. (2017). The myth of objectivity. <em>Potchefstroom Electronic Law Journal</em>, 20(1), 1–30.</p>
+<p>Kahneman, D. (2011). <em>Thinking, fast and slow</em>. Farrar, Straus and Giroux.</p>
+<p>Mayer, R. E. (2009). <em>Multimedia learning</em> (2a ed.). Cambridge University Press.</p>
+<p>Miller, G. A. (1956). The magical number seven, plus or minus two. <em>Psychological Review</em>, 63(2), 81–97.</p>
+<p>Murre, J. M. J., &amp; Dros, J. (2015). Replication and analysis of Ebbinghaus' forgetting curve. <em>PLOS ONE</em>, 10(7), e0120644.</p>
+<p>Murray, W. (2016). Cognitive load, language acquisition, and legal language. <em>Substack</em>.</p>
+<p>Paivio, A. (1991). Dual coding theory: Retrospect and current status. <em>Canadian Journal of Psychology</em>, 45(3), 255–287.</p>
+<p>Parco, A. (2025). Font of knowledge: Readability and typeface requirements. <em>NC Appellate Courts</em>.</p>
+<p>Pauk, W. (2011). <em>How to study in college</em> (11a ed.). Cengage Learning.</p>
+<p>Potter, M. C. (1984). Rapid serial visual presentation (RSVP). En D. Kieras &amp; M. Just (Eds.), <em>New methods in reading comprehension research</em>. Erlbaum.</p>
+<p>Rayner, K. (1998). Eye movements in reading and information processing. <em>Psychological Bulletin</em>, 124(3), 372–422.</p>
+<p>Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <em>Cognitive Science</em>, 12(2), 257–285.</p>
+<p>Toulmin, S. E. (1958). <em>The uses of argument</em>. Cambridge University Press.</p>
+<p>Tversky, A., &amp; Kahneman, D. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science</em>, 185(4157), 1124–1131.</p>
+<p>Wu, M. et al. (2024). What color scheme is more effective in assisting readers? <em>ArXiv</em>, 2408.06494.</p>
+</div>
+
+<footer>© 2026 Dr. Rogelio López Sánchez · Facultad de Derecho y Criminología, UANL<br>Diseño basado en neuroderecho, arquitectura de información minimalista y esquemas cromáticos no-análogos (Wu et al., 2024).</footer>
+
+</div>
+
+<script>
+function showSection(id){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+document.getElementById('sec-'+id).classList.add('active');
+document.getElementById('nav-'+id).classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+function showTab(el,id){
+const parent=el.closest('.section')||document;
+const tabGroup=el.parentElement;
+tabGroup.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+el.classList.add('active');
+let sibling=tabGroup.nextElementSibling;
+while(sibling&&sibling.classList.contains('tp')){
+sibling.classList.remove('active');
+sibling=sibling.nextElementSibling;
+}
+document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
